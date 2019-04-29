@@ -1,0 +1,294 @@
+#N canvas 477 127 961 810 10;
+#X obj 492 540 output~;
+#X obj 47 -37 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 492 200 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#N canvas 379 236 933 521 (subpatch) 0;
+#X array mult_factors 25 float 3;
+#A 0 0.5 0.52973 0.56123 0.5946 0.62996 0.66741 0.7071 0.74915 0.7937
+0.84089 0.89089 0.94387 1 1.0595 1.1225 1.1892 1.2599 1.3348 1.4142
+1.4983 1.5874 1.6818 1.7818 1.8897 2;
+#X coords 0 2 25 0 200 140 1;
+#X restore 42 307 graph;
+#N canvas 1414 69 436 358 sound_file_setup 0;
+#X obj 57 55 inlet;
+#X obj 57 176 soundfile_info;
+#X obj 57 113 openpanel;
+#X msg 57 142 read \$1;
+#X msg 162 142 read -resize \$1 sound-file;
+#X obj 162 175 soundfiler;
+#X obj 84 230 packel 1 3;
+#X obj 84 264 s sample_rate;
+#X obj 185 264 s sample_length;
+#X obj 57 85 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 54 13 Load sound file into buffer and get it's sample rate
+and sample length;
+#X obj 57 201 t b a;
+#X obj 57 301 s start_calc;
+#X text 137 301 Trigger start of calculations;
+#X connect 0 0 9 0;
+#X connect 1 0 11 0;
+#X connect 2 0 3 0;
+#X connect 2 0 4 0;
+#X connect 3 0 1 0;
+#X connect 4 0 5 0;
+#X connect 6 0 7 0;
+#X connect 6 1 8 0;
+#X connect 9 0 2 0;
+#X connect 11 0 12 0;
+#X connect 11 1 6 0;
+#X restore 47 5 pd sound_file_setup;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array sound-file 408831 float 2;
+#X coords 0 1 408831 -1 200 140 1;
+#X restore 44 50 graph;
+#X obj 432 -96 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 432 677 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#N canvas 1218 34 300 282 load_bangs 0;
+#X obj 35 56 loadbang;
+#X text 32 19 A few basic setup operations;
+#X msg 64 149 \; mult_factors ylabel -0.7 0 1 2;
+#X msg 35 197 \; mult_factors xlabel -0.15 0 12 24;
+#X obj 82 115 s debug;
+#X msg 82 92 0;
+#X connect 0 0 2 0;
+#X connect 0 0 3 0;
+#X connect 0 0 5 0;
+#X connect 5 0 4 0;
+#X restore 43 554 pd load_bangs;
+#N canvas 209 128 415 230 mult_factors_setup 0;
+#X msg 24 58 \; mult_factors 0 0.5 0.52973 0.56123 0.5946 0.62996 0.66741
+0.7071 0.74915 0.7937 0.84089 0.89089 0.94387 1 1.0595 1.1225 1.1892
+1.2599 1.3348 1.4142 1.4983 1.5874 1.6818 1.7818 1.8897 2;
+#X text 23 22 Simple message to load multiplication factions \, if
+needed.;
+#X text 24 147 Calculated (via google) by getting the "12th root of
+2 \, to the power of X" \, where X is the number of semi-tones up (or
+down) that you want to transpose.;
+#X restore 42 478 pd mult_factors_setup;
+#X text 22 210 ____________________________________________________________
+;
+#X text 19 502 ____________________________________________________________
+;
+#X text 41 257 Multiplication factors for the transposition;
+#X obj 44 595 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X text 65 594 Turn on/off debugging (printing);
+#X obj 44 615 s debug;
+#X floatatom 634 371 5 0 0 0 - - -;
+#X obj 634 348 int;
+#X text 672 371 <-- # of semitones to transpose;
+#N canvas 115 351 568 452 calculations 0;
+#X obj 58 31 r start_calc;
+#X obj 256 127 float;
+#X obj 283 99 r sample_rate;
+#X obj 85 99 r sample_length;
+#X obj 58 127 float;
+#X obj 58 65 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 121 213 /;
+#X text 30 237 sound-file ms:;
+#X obj 121 238 * 1000;
+#X obj 58 344 - 1;
+#X text 170 207 Calculate the number of milliseconds for the sound
+file by dividing the sample length by the sample rate and multiplying
+by 1000;
+#X obj 58 387 outlet;
+#X obj 121 387 outlet;
+#X obj 150 280 gate;
+#X obj 171 258 r debug;
+#X text 87 338 Sound file buffer index starts on zero \, so subtract
+one to get end sample of buffer;
+#X text 77 64 Calculate file info;
+#X obj 297 150 gate;
+#X obj 318 127 r debug;
+#X obj 297 172 print sample_rate;
+#X obj 111 147 gate;
+#X obj 132 124 r debug;
+#X obj 111 169 print sample_length;
+#X obj 150 303 print sound-file_ms;
+#X connect 0 0 5 0;
+#X connect 1 0 6 1;
+#X connect 2 0 1 1;
+#X connect 2 0 17 0;
+#X connect 3 0 4 1;
+#X connect 3 0 20 0;
+#X connect 4 0 6 0;
+#X connect 4 0 9 0;
+#X connect 5 0 1 0;
+#X connect 5 0 4 0;
+#X connect 6 0 8 0;
+#X connect 8 0 12 0;
+#X connect 8 0 13 0;
+#X connect 9 0 11 0;
+#X connect 13 0 23 0;
+#X connect 14 0 13 1;
+#X connect 17 0 19 0;
+#X connect 18 0 17 1;
+#X connect 20 0 22 0;
+#X connect 21 0 20 1;
+#X restore 522 311 pd calculations;
+#N canvas 1008 22 664 541 trans_and_playback 0;
+#X obj 106 30 inlet;
+#X obj 151 58 inlet;
+#X obj 392 419 tabplay~ sound-file;
+#X obj 392 393 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 91 377 line~;
+#X obj 91 420 tabread~ sound-file;
+#X msg 91 289 0 \, \$1 \$2;
+#X obj 91 261 pack f f;
+#X obj 137 341 print resulting_args_to_line;
+#X floatatom 261 200 5 0 0 0 - - -;
+#X obj 136 229 * 1;
+#X obj 261 174 tabread mult_factors;
+#X obj 261 148 + 12;
+#X obj 261 122 * -1;
+#X obj 137 316 gate;
+#X obj 158 289 r debug;
+#X obj 392 118 inlet;
+#X obj 91 468 outlet~;
+#X obj 91 174 f;
+#X obj 136 174 f;
+#X obj 25 1 inlet;
+#X text 64 1 start playback;
+#X text 430 118 start un-transposed playback;
+#X text 147 31 last sample of buffer;
+#X text 223 57 length of sound-file in ms;
+#X obj 261 89 inlet;
+#X text 299 87 desired transposition in semitones;
+#X obj 229 467 outlet;
+#X obj 35 60 s last_samp;
+#X obj 15 174 s pb_start;
+#X obj 25 90 t b b b b;
+#X obj 174 174 s rec_start;
+#N canvas 984 584 471 373 record_controller 0;
+#X obj 134 58 inlet~;
+#X obj 211 322 outlet;
+#X obj 211 214 sel;
+#X obj 211 163 snapshot~;
+#X obj 226 188 r last_samp;
+#X obj 211 137 metro 500;
+#X obj 211 58 r pb_start;
+#X msg 211 111 1;
+#X msg 243 111 0;
+#X obj 211 82 pipe 500;
+#X text 14 148 Sends start/stop messages to the writesf~ object. Determines
+end of playback by polling the output of the line~ object.;
+#X obj 227 240 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 128 298 start;
+#X msg 211 298 stop;
+#X obj 128 269 r rec_start;
+#X text 271 82 Need a delay or snapshot will automatically end recording.
+;
+#X connect 0 0 3 0;
+#X connect 2 0 8 0;
+#X connect 2 0 11 0;
+#X connect 2 0 13 0;
+#X connect 3 0 2 0;
+#X connect 4 0 2 1;
+#X connect 5 0 3 0;
+#X connect 6 0 9 0;
+#X connect 7 0 5 0;
+#X connect 8 0 5 0;
+#X connect 9 0 7 0;
+#X connect 12 0 1 0;
+#X connect 13 0 1 0;
+#X connect 14 0 12 0;
+#X restore 229 420 pd record_controller;
+#X text 274 468 Start/Stop messages for writesf~;
+#X connect 0 0 18 1;
+#X connect 0 0 28 0;
+#X connect 1 0 19 1;
+#X connect 2 0 17 0;
+#X connect 3 0 2 0;
+#X connect 4 0 5 0;
+#X connect 4 0 32 0;
+#X connect 5 0 17 0;
+#X connect 6 0 4 0;
+#X connect 6 0 14 0;
+#X connect 7 0 6 0;
+#X connect 9 0 10 1;
+#X connect 10 0 7 1;
+#X connect 11 0 9 0;
+#X connect 12 0 11 0;
+#X connect 13 0 12 0;
+#X connect 14 0 8 0;
+#X connect 15 0 14 1;
+#X connect 16 0 3 0;
+#X connect 18 0 7 0;
+#X connect 19 0 10 0;
+#X connect 20 0 30 0;
+#X connect 25 0 13 0;
+#X connect 30 0 29 0;
+#X connect 30 1 18 0;
+#X connect 30 2 19 0;
+#X connect 30 3 31 0;
+#X connect 32 0 27 0;
+#X restore 492 467 pd trans_and_playback;
+#X obj 637 311 hsl 256 30 -12 12 0 0 empty empty Transposition -2 -8
+0 10 -262144 -1 -1 9100 1;
+#X obj 615 445 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 635 444 Play back un-transposed;
+#X text 71 -43 Choose sound file to process \, load into buffer \,
+and get it's info.;
+#X text 481 72 ____________________________________________________________
+;
+#X text 487 -39 **pitch_shifter**: transposes mono sound files by altering
+the rate of playback. Transposition is performed in this way to avoid
+digital artifacts \, but does \, of course \, alter the duration of
+the resulting sound file. Transposition range is -12 semitones to +12
+semitones.;
+#X obj 615 565 writesf~;
+#X text 624 477 Start/Stop messages for writesf~;
+#X text 510 198 Choose resulting file name and record transposed result
+;
+#X obj 626 535 r file_name;
+#N canvas 1212 182 394 260 file_setup 0;
+#X obj 98 46 inlet;
+#X obj 71 198 outlet;
+#X obj 98 77 savepanel;
+#X msg 98 103 open \$1;
+#X obj 98 128 s file_name;
+#X obj 71 104 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 71 162 pipe 1000;
+#X text 164 70 Force user to select file to save transposed data to.
+;
+#X text 134 157 Delay to ensure new file is ready before recording
+begins;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 0 5 0;
+#X connect 3 0 4 0;
+#X connect 5 0 6 0;
+#X connect 6 0 1 0;
+#X restore 492 226 pd file_setup;
+#X obj 40 -80 cnv 15 80 30 empty empty 1:Load 15 15 0 14 -203904 -66577
+0;
+#X obj 484 158 cnv 15 80 30 empty empty 3:Play 15 15 0 14 -203904 -66577
+0;
+#X obj 631 258 cnv 15 92 30 empty empty 2:Choose 15 15 0 14 -203904
+-66577 0;
+#X connect 1 0 4 0;
+#X connect 2 0 31 0;
+#X connect 6 0 7 0;
+#X connect 13 0 15 0;
+#X connect 16 0 20 3;
+#X connect 17 0 16 0;
+#X connect 19 0 20 1;
+#X connect 19 1 20 2;
+#X connect 20 0 0 0;
+#X connect 20 0 0 1;
+#X connect 20 0 27 0;
+#X connect 20 1 27 0;
+#X connect 21 0 17 0;
+#X connect 22 0 20 4;
+#X connect 30 0 27 0;
+#X connect 31 0 20 0;

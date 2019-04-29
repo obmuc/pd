@@ -1,0 +1,55 @@
+#N canvas 1075 80 632 422 10;
+#X text 14 3 http://obiwannabe.co.uk/html/music/6SS/six-simple-synthesisers.html
+;
+#X obj 35 142 phasor~ 220;
+#X obj 135 142 phasor~ 221;
+#X obj 35 169 -~ 0.5;
+#X obj 135 169 -~ 0.5;
+#X obj 75 232 +~;
+#X obj 75 384 dac~;
+#X obj 75 264 bp~ 660 3;
+#X obj 75 343 *~ 0.2;
+#X obj 499 78 vsl 15 50 100 2000 0 0 empty empty filter_freq 0 -9 0
+10 -262144 -1 -1 3100 1;
+#X obj 162 271 vsl 15 50 0 0.3 0 0 empty empty amp 0 -9 0 10 -262144
+-1 -1 2000 1;
+#X obj 238 179 line;
+#X obj 238 206 * 3000;
+#X obj 238 233 + 20;
+#X obj 346 34 vsl 15 50 1 3000 0 0 empty empty attack 0 -9 0 10 -262144
+-1 -1 3400 1;
+#X obj 388 34 vsl 15 50 1 3000 0 0 empty empty decay 0 -9 0 10 -262144
+-1 -1 4000 1;
+#X obj 75 307 hip~ 60;
+#X obj 236 38 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 236 62 t b b;
+#X obj 236 87 del;
+#X obj 239 121 f;
+#X obj 285 122 f;
+#X msg 238 149 0 \$1;
+#X msg 285 149 1 \$1;
+#X connect 1 0 3 0;
+#X connect 2 0 4 0;
+#X connect 3 0 5 0;
+#X connect 4 0 5 1;
+#X connect 5 0 7 0;
+#X connect 7 0 16 0;
+#X connect 8 0 6 0;
+#X connect 8 0 6 1;
+#X connect 10 0 8 1;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 7 1;
+#X connect 14 0 19 1;
+#X connect 14 0 20 1;
+#X connect 15 0 21 1;
+#X connect 16 0 8 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 1 21 0;
+#X connect 19 0 20 0;
+#X connect 20 0 22 0;
+#X connect 21 0 23 0;
+#X connect 22 0 11 0;
+#X connect 23 0 11 0;

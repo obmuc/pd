@@ -1,0 +1,24 @@
+#N canvas 370 463 443 263 10;
+#X obj 104 207 dac~;
+#X obj 153 208 writesf~ 2;
+#X obj 218 105 inlet~;
+#X obj 153 105 inlet~;
+#X obj 98 105 inlet;
+#X obj 53 105 inlet;
+#X obj 9 105 inlet;
+#X msg 54 126 start;
+#X msg 99 126 stop;
+#X text 18 26 **synthRecorder_abs~.pd** Records sound files and plays
+back audio. -- Inlets (l/r): message consisting of: "open [path/to/file/name]"
+\, start recording \, stop recording \, left audio channel \, right
+audio channel;
+#X text 23 6 DEPRECATED: USE outs_abs~ INSTEAD.;
+#X connect 2 0 1 1;
+#X connect 2 0 0 1;
+#X connect 3 0 0 0;
+#X connect 3 0 1 0;
+#X connect 4 0 8 0;
+#X connect 5 0 7 0;
+#X connect 6 0 1 0;
+#X connect 7 0 1 0;
+#X connect 8 0 1 0;

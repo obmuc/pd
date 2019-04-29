@@ -1,0 +1,22 @@
+#N canvas 367 133 464 326 10;
+#X msg 191 158 start;
+#X msg 258 158 stop;
+#X obj 54 207 dac~;
+#X obj 123 208 writesf~ 2;
+#X obj 123 158 inlet~;
+#X obj 54 158 inlet~;
+#X obj 191 102 receive startRecording;
+#X obj 258 131 receive stopRecording;
+#X obj 7 158 inlet;
+#X text 24 30 **sfRecorder_abs.pd** Records sound files and plays back
+audio. -- Inlets (l/r): message consisting of: "open [path/to/file/name]"
+\, left audio channel \, right audio channel;
+#X connect 0 0 3 0;
+#X connect 1 0 3 0;
+#X connect 4 0 3 1;
+#X connect 4 0 2 1;
+#X connect 5 0 2 0;
+#X connect 5 0 3 0;
+#X connect 6 0 0 0;
+#X connect 7 0 1 0;
+#X connect 8 0 3 0;

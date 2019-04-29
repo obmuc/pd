@@ -1,0 +1,34 @@
+#N canvas 141 584 477 306 10;
+#X obj 104 94 inlet~;
+#X obj 210 94 inlet~;
+#X obj 104 210 mute_abs~;
+#X obj 210 210 mute_abs~;
+#X obj 161 271 outlet~;
+#X obj 300 94 inlet;
+#X obj 396 46 hradio 15 1 0 2 empty empty empty 0 -8 0 10 -262144 -1
+-1 0;
+#X obj 155 183 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 261 183 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X text 38 18 **signalChooser_abs~**: Simple toggle between two signals.
+--Inlets (l to r): Signal 1 \, Signal 2 \, 0 or 1 (0=signal 1 and 1=signal
+2)... best to use hradio for selection ------>;
+#X obj 300 123 expr if ($i1 <= 0 \, 0 \, 1) \; if ($i1 <= 0 \, 1 \,
+0) \;;
+#X obj 19 92 loadbang;
+#X msg 19 125 0;
+#X msg 58 126 1;
+#X connect 0 0 2 0;
+#X connect 1 0 3 0;
+#X connect 2 0 4 0;
+#X connect 3 0 4 0;
+#X connect 5 0 10 0;
+#X connect 7 0 2 1;
+#X connect 8 0 3 1;
+#X connect 10 0 7 0;
+#X connect 10 1 8 0;
+#X connect 11 0 12 0;
+#X connect 11 0 13 0;
+#X connect 12 0 7 0;
+#X connect 13 0 8 0;

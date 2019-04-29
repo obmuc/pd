@@ -1,0 +1,15 @@
+#N canvas 1020 513 450 300 10;
+#X obj 28 142 phasor~;
+#X obj 74 107 inlet;
+#X obj 28 107 inlet~;
+#X obj 28 236 outlet~;
+#X obj 28 174 *~ 2;
+#X obj 28 204 -~ 1;
+#X text 24 18 **sawtooth_abs~.pd** Generates a rising sawtooth (ramp)
+wave that oscillates between -1 and +1 (instead of 0 to +1 as produced
+by phasor~). -- Inlets (l to r): frequency \, phase.;
+#X connect 0 0 4 0;
+#X connect 1 0 0 1;
+#X connect 2 0 0 0;
+#X connect 4 0 5 0;
+#X connect 5 0 3 0;

@@ -1,0 +1,40 @@
+#N canvas 736 181 558 428 10;
+#X msg 38 271 open /Users/obmuc/Desktop/test1.aif;
+#X obj 64 292 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 90 308 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 85 289 start recording;
+#X text 111 307 stop recording;
+#X obj 132 222 line~;
+#X obj 116 245 *~;
+#X obj 368 92 loadbang;
+#X msg 163 189 0 500;
+#X msg 213 189 1 500;
+#X obj 116 165 osc~ 440;
+#X floatatom 116 141 5 0 0 0 - - -;
+#X obj 36 98 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 36 142 t b b;
+#X obj 163 96 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 192 223 select 0;
+#X text 57 98 start playback;
+#X text 185 94 stop playback;
+#X obj 38 330 synthRecorder_abs~;
+#X connect 0 0 18 0;
+#X connect 1 0 18 1;
+#X connect 2 0 18 2;
+#X connect 5 0 6 1;
+#X connect 6 0 18 3;
+#X connect 7 0 8 0;
+#X connect 8 0 5 0;
+#X connect 8 0 15 0;
+#X connect 9 0 5 0;
+#X connect 10 0 6 0;
+#X connect 11 0 10 0;
+#X connect 12 0 13 0;
+#X connect 13 0 9 0;
+#X connect 13 1 1 0;
+#X connect 14 0 8 0;
+#X connect 15 0 2 0;

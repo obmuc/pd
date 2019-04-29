@@ -1,0 +1,28 @@
+#N canvas 483 142 469 521 10;
+#X msg 79 217 1;
+#X msg 79 263 0;
+#X obj 25 308 readsf~ 2;
+#X obj 79 196 t b b;
+#X obj 79 241 t b b;
+#X obj 26 105 inlet;
+#X obj 79 105 inlet;
+#X obj 129 105 inlet;
+#X obj 25 340 outlet~;
+#X obj 95 340 outlet~;
+#X obj 141 217 send startRecording;
+#X obj 141 262 send stopRecording;
+#X text 33 12 **sfPlayer_abs.pd** Plays sound files and triggers recording
+in sfRecorder_abs.pd (must be used together). -- Inlets (l/r): message
+consisting of: "open [file name]" \, start playback \, stop playback
+;
+#X connect 0 0 2 0;
+#X connect 1 0 2 0;
+#X connect 2 0 8 0;
+#X connect 2 1 9 0;
+#X connect 3 0 0 0;
+#X connect 3 1 10 0;
+#X connect 4 0 1 0;
+#X connect 4 1 11 0;
+#X connect 5 0 2 0;
+#X connect 6 0 3 0;
+#X connect 7 0 4 0;

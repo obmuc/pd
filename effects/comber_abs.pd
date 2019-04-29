@@ -1,0 +1,45 @@
+#N canvas 380 474 616 441 10;
+#X obj 85 162 inlet~;
+#X obj 85 389 outlet~;
+#X obj 120 189 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X text 174 188 Delay Time;
+#X text 191 209 Input (pre delay) amplitude;
+#X text 226 228 Input (post delay) amplitude;
+#X text 263 249 Output Amplitude;
+#X obj 158 210 hsl 32 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X floatatom 155 229 5 0 0 0 - - -;
+#X obj 193 229 hsl 32 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X floatatom 190 248 5 0 0 0 - - -;
+#X obj 229 250 hsl 32 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X floatatom 226 269 5 0 0 0 - - -;
+#X obj 85 308 comb~ 40 0.74 0.74 0.934;
+#X obj 365 110 loadbang;
+#X text 220 93 Creation arguments don't seem to work with comb~ so
+using loadbang instead;
+#X msg 365 149 0.95;
+#X msg 323 140 0.74;
+#X obj 140 163 inlet;
+#X text 78 21 ** comber_abs.pd** Basic comb filter. --Required Arguments:
+\$1: Output Amplitude Multiplier. -- Inlets (l/r): Audio Signal \,
+Delay Time (values between 20 and 50 sound best).;
+#X obj 85 348 *~ \$1;
+#X connect 0 0 13 0;
+#X connect 2 0 13 1;
+#X connect 7 0 8 0;
+#X connect 8 0 13 2;
+#X connect 9 0 10 0;
+#X connect 10 0 13 3;
+#X connect 11 0 12 0;
+#X connect 12 0 13 4;
+#X connect 13 0 20 0;
+#X connect 14 0 17 0;
+#X connect 14 0 16 0;
+#X connect 16 0 11 0;
+#X connect 17 0 9 0;
+#X connect 17 0 7 0;
+#X connect 18 0 2 0;
+#X connect 20 0 1 0;

@@ -1,0 +1,18 @@
+#N canvas 179 537 439 371 10;
+#X obj 79 116 inlet~;
+#X obj 79 301 outlet~;
+#X obj 79 259 bp~ 440 10;
+#X obj 107 166 inlet;
+#X obj 153 167 inlet;
+#X obj 107 211 *;
+#X obj 200 168 inlet;
+#X text 48 21 **bpFilter_abs.pd** Band-Pass filter for use as part
+of a bank of filters. Includes multiplication factor for frequency
+- allowing a bank of filters to be coordinated. -- Inlets (l/r): audio
+signal \, frequency \, frequency multiplier \, Q value;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;
+#X connect 3 0 5 0;
+#X connect 4 0 5 1;
+#X connect 5 0 2 1;
+#X connect 6 0 2 2;

@@ -1,0 +1,92 @@
+#N canvas 710 289 851 653 10;
+#X obj 90 297 hsl 128 15 0 1 0 0 empty empty Dry________________Wet
+-2 -8 0 10 -262144 -1 -1 0 1;
+#X obj 167 361 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 87 317 * -1;
+#X obj 87 339 + 1;
+#X obj 87 361 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 72 388 *~;
+#X obj 258 419 *~;
+#X obj 258 296 comber_abs 0.25;
+#X obj 386 296 comber_abs 0.25;
+#X obj 515 296 comber_abs 0.25;
+#X obj 645 296 comber_abs 0.25;
+#X obj 345 237 nbx 5 14 1 100 0 0 empty empty empty 0 -8 0 10 -262144
+-1 -1 15 256;
+#X obj 473 237 nbx 5 14 1 100 0 0 empty empty empty 0 -8 0 10 -262144
+-1 -1 23 256;
+#X obj 602 237 nbx 5 14 1 100 0 0 empty empty empty 0 -8 0 10 -262144
+-1 -1 22 256;
+#X obj 732 237 nbx 5 14 1 100 0 0 empty empty empty 0 -8 0 10 -262144
+-1 -1 39 256;
+#X obj 651 117 loadbang;
+#X obj 651 170 unpack f f f f;
+#X obj 257 41 adc~;
+#X obj 209 95 vu 15 120 empty empty -1 -8 0 10 -66577 -1 1 0;
+#X obj 208 70 pvu~;
+#X obj 286 496 vu 15 120 empty empty -1 -8 0 10 -66577 -1 1 0;
+#X obj 285 466 pvu~;
+#X obj 237 466 dac~;
+#X obj 258 259 mute~;
+#X obj 285 237 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 386 263 mute~;
+#X obj 413 241 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 515 263 mute~;
+#X obj 542 241 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 645 263 mute~;
+#X obj 672 241 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 258 385 hip~;
+#X obj 279 334 nbx 5 14 20 20000 0 0 empty empty High-Pass_Freq. 0
+-8 0 10 -262144 -1 -1 20 256;
+#X msg 651 144 15 23 22 39;
+#X text 414 142 Tested delay times: these work best ->;
+#X text 416 369 Output Amplitude (within comber_abs) should be set
+as follows for each of the four: 0.95 \, 0.25 \, 0.6 \, 0.15;
+#X connect 0 0 1 0;
+#X connect 0 0 2 0;
+#X connect 1 0 6 1;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 1;
+#X connect 5 0 21 0;
+#X connect 5 0 22 1;
+#X connect 6 0 21 0;
+#X connect 6 0 22 1;
+#X connect 7 0 31 0;
+#X connect 8 0 31 0;
+#X connect 9 0 31 0;
+#X connect 10 0 31 0;
+#X connect 11 0 7 1;
+#X connect 12 0 8 1;
+#X connect 13 0 9 1;
+#X connect 14 0 10 1;
+#X connect 15 0 33 0;
+#X connect 16 0 11 0;
+#X connect 16 1 12 0;
+#X connect 16 2 13 0;
+#X connect 16 3 14 0;
+#X connect 17 0 19 0;
+#X connect 17 0 5 0;
+#X connect 17 0 23 0;
+#X connect 17 0 25 0;
+#X connect 17 0 27 0;
+#X connect 17 0 29 0;
+#X connect 19 0 18 0;
+#X connect 21 0 20 0;
+#X connect 23 0 7 0;
+#X connect 24 0 23 1;
+#X connect 25 0 8 0;
+#X connect 26 0 25 1;
+#X connect 27 0 9 0;
+#X connect 28 0 27 1;
+#X connect 29 0 10 0;
+#X connect 30 0 29 1;
+#X connect 31 0 6 0;
+#X connect 32 0 31 1;
+#X connect 33 0 16 0;

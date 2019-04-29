@@ -1,0 +1,10 @@
+#N canvas 995 581 439 225 10;
+#X obj 58 79 inlet;
+#X obj 58 134 expr if ($i1 < 1 \, 1 \, $i1);
+#X obj 58 110 expr if ($i1 > 100 \, 100 \, $i1);
+#X obj 58 162 outlet;
+#X text 47 28 **oneToOneHundred_abs** Constrains input to values between
+1 and 100 -- Inlet: value to constrain;
+#X connect 0 0 2 0;
+#X connect 1 0 3 0;
+#X connect 2 0 1 0;

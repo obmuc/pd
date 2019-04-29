@@ -1,0 +1,37 @@
+#N canvas 207 78 812 473 10;
+#X obj 35 351 *~ 0.1;
+#X obj 72 309 * 0.01;
+#X obj 136 351 *~ 0.1;
+#X obj 173 310 * 0.01;
+#X obj 243 166 osc~ 1;
+#X obj 243 192 +~ 2;
+#X obj 34 94 inlet~;
+#X obj 35 406 outlet~;
+#X obj 158 193 *~ 0.1;
+#X obj 73 270 inlet;
+#X obj 172 271 inlet;
+#X obj 242 125 inlet;
+#X obj 194 124 inlet;
+#X text 280 187 this addition produces between 1 and 3 ms delay;
+#X obj 135 228 vd~ \$1;
+#X obj 64 149 delwrite~ \$1 1000;
+#X text 29 8 **flanger_abs.pd** Does mono flanging with a single delay
+line and a variable delay between 1 and 3 ms. -- Required arguments:
+\$1: Name of delay line for this instance (necessary to allow multiple
+instances to have different delay lines) -- Inlets (l/r): Audio \,
+Dry Volume \, Delay Volume \, Flange Feedback \, Flange LFO Speed;
+#X connect 0 0 7 0;
+#X connect 1 0 0 1;
+#X connect 2 0 7 0;
+#X connect 3 0 2 1;
+#X connect 4 0 5 0;
+#X connect 5 0 14 0;
+#X connect 6 0 0 0;
+#X connect 6 0 15 0;
+#X connect 8 0 15 0;
+#X connect 9 0 1 0;
+#X connect 10 0 3 0;
+#X connect 11 0 4 0;
+#X connect 12 0 8 1;
+#X connect 14 0 2 0;
+#X connect 14 0 8 0;

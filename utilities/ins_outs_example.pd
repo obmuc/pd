@@ -1,0 +1,62 @@
+#N canvas 647 580 691 416 10;
+#X obj 99 349 outs_abs~;
+#X obj 144 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 156 155 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 111 58 open hollow_bell_a.wav;
+#X obj 122 85 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 140 83 <-- start playback;
+#X obj 133 109 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 153 108 <-- stop playback;
+#X obj 111 178 ins_abs~;
+#X text 162 130 <-- play incoming audio;
+#X text 176 152 <-- play sound file;
+#X obj 137 303 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 150 326 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X text 169 323 <-- record sound file;
+#X text 158 301 <-- audio out;
+#X obj 512 31 dsp~;
+#X floatatom 512 55 5 0 0 0 - - -;
+#X obj 512 8 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X msg 99 277 open /Users/obmuc/Desktop/ins_outs_testing.wav;
+#X obj 80 -2 t b b b;
+#X obj 80 -28 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 156 200 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 80 24 delay 1000;
+#X obj 156 222 delay 500;
+#X obj 344 6 loadbang;
+#X msg 344 28 1;
+#X text 284 -17 Default to muting everything;
+#X obj 344 51 s mute_master;
+#X text 323 153 An example of audio input/output and file playing/recording
+controls.;
+#X connect 1 0 8 3;
+#X connect 2 0 8 4;
+#X connect 3 0 8 0;
+#X connect 4 0 8 1;
+#X connect 6 0 8 2;
+#X connect 8 0 0 1;
+#X connect 8 1 0 2;
+#X connect 8 2 21 0;
+#X connect 11 0 0 3;
+#X connect 12 0 0 4;
+#X connect 15 0 16 0;
+#X connect 17 0 15 0;
+#X connect 18 0 0 0;
+#X connect 19 0 22 0;
+#X connect 19 1 18 0;
+#X connect 19 2 3 0;
+#X connect 20 0 19 0;
+#X connect 21 0 23 0;
+#X connect 22 0 4 0;
+#X connect 23 0 6 0;
+#X connect 24 0 25 0;
+#X connect 25 0 27 0;

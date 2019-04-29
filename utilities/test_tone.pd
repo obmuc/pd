@@ -1,0 +1,24 @@
+#N canvas 741 244 869 440 10;
+#X obj 228 52 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 161 108 osc~ 440;
+#X floatatom 161 51 10 0 0 0 - - -;
+#X obj 176 175 line~;
+#X msg 224 146 0 500;
+#X msg 176 146 1 500;
+#X obj 161 201 *~;
+#X obj 228 109 select 1;
+#X obj 161 242 output~;
+#X obj 161 80 sig~;
+#X msg 161 20 349.23;
+#X connect 0 0 7 0;
+#X connect 1 0 6 0;
+#X connect 2 0 9 0;
+#X connect 3 0 6 1;
+#X connect 4 0 3 0;
+#X connect 5 0 3 0;
+#X connect 6 0 8 1;
+#X connect 7 0 5 0;
+#X connect 7 1 4 0;
+#X connect 9 0 1 0;
+#X connect 10 0 2 0;

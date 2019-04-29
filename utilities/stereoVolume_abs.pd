@@ -1,0 +1,19 @@
+#N canvas 477 628 444 270 10;
+#X obj 47 58 inlet~;
+#X obj 143 58 inlet~;
+#X obj 243 58 inlet;
+#X obj 47 178 outlet~;
+#X obj 143 178 outlet~;
+#X obj 47 133 *~ 0.5;
+#X obj 143 133 *~ 0.5;
+#X text 46 -17 **stereoVolume_abs** Simple volume control -- Inlets
+(l/r): left audio channel \, right audio channel \, volume level (0
+to 1);
+#X obj 243 84 * 0.5;
+#X connect 0 0 5 0;
+#X connect 1 0 6 0;
+#X connect 2 0 8 0;
+#X connect 5 0 3 0;
+#X connect 6 0 4 0;
+#X connect 8 0 6 1;
+#X connect 8 0 5 1;

@@ -1,0 +1,126 @@
+#N canvas 83 34 1443 762 10;
+#X obj 164 241 vsl 15 128 0 100 0 0 empty empty Dry_Volume 0 -9 0 10
+-262144 -1 -1 0 1;
+#X obj 242 241 vsl 15 128 0 100 0 0 empty empty Delay_Volume 0 -9 0
+10 -262144 -1 -1 0 1;
+#X obj 300 393 hsl 64 15 0 5 0 0 empty empty empty -2 -6 0 8 -262144
+-1 -1 0 1;
+#X text 377 391 LFO Speed;
+#X obj 300 345 hsl 64 15 0 0.8 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X text 374 344 Feedback (0 - 0.8);
+#X floatatom 163 380 5 0 0 0 - - -;
+#X floatatom 241 380 5 0 0 0 - - -;
+#X floatatom 297 368 5 0 0 0 - - -;
+#X floatatom 297 418 5 0 0 0 - - -;
+#X obj 511 244 vsl 15 128 0 100 0 0 empty empty Dry_Volume 0 -9 0 10
+-262144 -1 -1 0 1;
+#X obj 589 244 vsl 15 128 0 100 0 0 empty empty Delay_Volume 0 -9 0
+10 -262144 -1 -1 0 1;
+#X obj 647 396 hsl 64 15 0 5 0 0 empty empty empty -2 -6 0 8 -262144
+-1 -1 0 1;
+#X text 724 394 LFO Speed;
+#X obj 647 348 hsl 64 15 0 0.8 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X text 721 347 Feedback (0 - 0.8);
+#X floatatom 510 383 5 0 0 0 - - -;
+#X floatatom 588 383 5 0 0 0 - - -;
+#X floatatom 644 371 5 0 0 0 - - -;
+#X floatatom 644 421 5 0 0 0 - - -;
+#X obj 144 610 *~ 0.5;
+#X obj 191 610 *~ 0.5;
+#X obj -195 239 vsl 15 128 0 100 0 0 empty empty Dry_Volume 0 -9 0
+10 -262144 -1 -1 0 1;
+#X obj -117 239 vsl 15 128 0 100 0 0 empty empty Delay_Volume 0 -9
+0 10 -262144 -1 -1 0 1;
+#X obj -59 391 hsl 64 15 0 5 0 0 empty empty empty -2 -6 0 8 -262144
+-1 -1 0 1;
+#X text 18 389 LFO Speed;
+#X obj -59 343 hsl 64 15 0 0.8 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X text 15 342 Feedback (0 - 0.8);
+#X floatatom -196 378 5 0 0 0 - - -;
+#X floatatom -118 378 5 0 0 0 - - -;
+#X floatatom -62 366 5 0 0 0 - - -;
+#X floatatom -62 416 5 0 0 0 - - -;
+#X obj 853 240 vsl 15 128 0 100 0 0 empty empty Dry_Volume 0 -9 0 10
+-262144 -1 -1 0 1;
+#X obj 931 240 vsl 15 128 0 100 0 0 empty empty Delay_Volume 0 -9 0
+10 -262144 -1 -1 0 1;
+#X obj 989 392 hsl 64 15 0 5 0 0 empty empty empty -2 -6 0 8 -262144
+-1 -1 0 1;
+#X text 1066 390 LFO Speed;
+#X obj 989 344 hsl 64 15 0 0.8 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X text 1063 343 Feedback (0 - 0.8);
+#X floatatom 852 379 5 0 0 0 - - -;
+#X floatatom 930 379 5 0 0 0 - - -;
+#X floatatom 986 367 5 0 0 0 - - -;
+#X floatatom 986 417 5 0 0 0 - - -;
+#X obj 189 61 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 229 82 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 9 29 comment;
+#X obj 144 715 dac~;
+#X obj 240 627 hsl 128 15 0 1 0 0 empty empty Master_Volume -2 -8 0
+10 -262144 -1 -1 0 1;
+#X floatatom 237 651 5 0 0 0 - - -;
+#X msg 150 32 open hollow_bell_a.wav;
+#X text 211 60 start playback;
+#X text 252 80 stop playback;
+#X obj -214 456 flanger_abs~ first;
+#X obj 145 458 flanger_abs~ second;
+#X obj 492 461 flanger_abs~ third;
+#X obj 834 457 flanger_abs~ fourth;
+#X obj 144 677 stereoVolume_abs~;
+#X obj 150 108 sfPlayer_abs~;
+#X connect 0 0 6 0;
+#X connect 1 0 7 0;
+#X connect 2 0 9 0;
+#X connect 4 0 8 0;
+#X connect 6 0 52 1;
+#X connect 7 0 52 2;
+#X connect 8 0 52 3;
+#X connect 9 0 52 4;
+#X connect 10 0 16 0;
+#X connect 11 0 17 0;
+#X connect 12 0 19 0;
+#X connect 14 0 18 0;
+#X connect 16 0 53 1;
+#X connect 17 0 53 2;
+#X connect 18 0 53 3;
+#X connect 19 0 53 4;
+#X connect 20 0 55 0;
+#X connect 21 0 55 1;
+#X connect 22 0 28 0;
+#X connect 23 0 29 0;
+#X connect 24 0 31 0;
+#X connect 26 0 30 0;
+#X connect 28 0 51 1;
+#X connect 29 0 51 2;
+#X connect 30 0 51 3;
+#X connect 31 0 51 4;
+#X connect 32 0 38 0;
+#X connect 33 0 39 0;
+#X connect 34 0 41 0;
+#X connect 36 0 40 0;
+#X connect 38 0 54 1;
+#X connect 39 0 54 2;
+#X connect 40 0 54 3;
+#X connect 41 0 54 4;
+#X connect 42 0 56 1;
+#X connect 43 0 56 2;
+#X connect 46 0 47 0;
+#X connect 47 0 55 2;
+#X connect 48 0 56 0;
+#X connect 51 0 20 0;
+#X connect 52 0 20 0;
+#X connect 53 0 21 0;
+#X connect 54 0 21 0;
+#X connect 55 0 45 0;
+#X connect 55 1 45 1;
+#X connect 56 0 51 0;
+#X connect 56 0 52 0;
+#X connect 56 0 53 0;
+#X connect 56 0 54 0;

@@ -1,0 +1,13 @@
+#N canvas 831 337 450 300 10;
+#X obj 57 126 inlet~;
+#X obj 57 159 env~ 128;
+#X text 14 19 **pvu~.pd** Replacement for the now deprecated pvu~ object
+from pd-extended. Converts audio signals into a decibel value suitable
+for use with the vu~ object. -- Inlets (l to r): audio signal to measure.
+-- Outlets (l to r): audio signal measurement in dB \; should be used
+with vu~.;
+#X obj 57 194 -100;
+#X obj 57 226 outlet;
+#X connect 0 0 1 0;
+#X connect 1 0 3 0;
+#X connect 3 0 4 0;

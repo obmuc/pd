@@ -1,0 +1,839 @@
+#N canvas 164 177 1110 447 10;
+#X obj 164 174 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#N canvas 669 238 498 348 pulse 0;
+#X obj 64 153 metro;
+#X obj 63 94 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X floatatom 95 131 5 0 0 1 tempo_(ms) - -;
+#X obj 63 60 inlet;
+#X obj 64 190 outlet;
+#X obj 120 61 inlet;
+#X connect 0 0 4 0;
+#X connect 1 0 0 0;
+#X connect 2 0 0 1;
+#X connect 3 0 1 0;
+#X connect 5 0 2 0;
+#X coords 0 0 1 1 85 60 0;
+#X restore 163 134 pd pulse;
+#X obj 164 96 tgl 15 0 empty empty on/off 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 233 97 hsl 128 15 500 50 0 0 empty empty tempo_(ms) 132 7 0
+10 -262144 -1 -1 0 1;
+#X obj 65 25 loadbang;
+#X msg 230 63 500;
+#N canvas 132 22 964 774 riffplayer 1;
+#X obj 173 49 inlet;
+#X obj 171 573 outlet;
+#X text 215 48 pulse;
+#X text 466 158 number of riff to play;
+#X text 220 572 midi note numbers;
+#X floatatom 263 294 5 0 0 0 - - -;
+#X floatatom 264 430 5 0 0 0 - - -;
+#N canvas 189 35 872 483 counter 0;
+#X floatatom 128 237 0 0 0 0 - - -;
+#X obj 128 212 + 1;
+#X obj 71 40 inlet;
+#X obj 178 274 inlet;
+#X msg 200 137 -1;
+#X obj 178 346 outlet;
+#X obj 71 213 int;
+#X obj 72 70 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 199 107 spigot;
+#X obj 200 173 trigger float bang;
+#X msg 235 76 0;
+#X msg 196 77 1;
+#X obj 128 313 select 9;
+#X obj 128 272 t f f;
+#X obj 224 314 int;
+#X text 262 304 the counter number needs to be stored here so that
+when the value passes through the select it still gets passed on no
+matter if it matches.;
+#X text 257 127 the reset of the count has to be triggered by the incoming
+pulse to ensure that the reset value (-1) isn't overwritten in the
+int box by the value coming out of the +1.;
+#X text 219 274 size of the current array comes in here;
+#X obj 237 347 outlet;
+#X obj 255 107 receive reset;
+#X connect 0 0 13 0;
+#X connect 1 0 0 0;
+#X connect 1 0 6 1;
+#X connect 2 0 7 0;
+#X connect 3 0 12 1;
+#X connect 4 0 9 0;
+#X connect 6 0 1 0;
+#X connect 7 0 6 0;
+#X connect 7 0 8 0;
+#X connect 8 0 4 0;
+#X connect 9 0 6 1;
+#X connect 9 1 10 0;
+#X connect 10 0 8 1;
+#X connect 11 0 8 1;
+#X connect 12 0 11 0;
+#X connect 12 0 14 0;
+#X connect 12 0 18 0;
+#X connect 12 1 5 0;
+#X connect 13 0 12 0;
+#X connect 13 1 14 1;
+#X connect 14 0 5 0;
+#X connect 19 0 4 0;
+#X restore 262 212 pd counter;
+#X obj 263 349 tabread riff0;
+#N canvas 1372 22 1006 492 riff_selector 0;
+#X obj 65 36 inlet;
+#X obj 66 345 outlet;
+#X obj 65 65 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom 64 257 5 0 0 0 - - -;
+#X text 107 36 number of the current riff;
+#N canvas 300 183 885 428 riff_commands 0;
+#X obj 56 34 inlet;
+#X text 100 35 next riff's number;
+#X obj 56 312 outlet;
+#X obj 57 74 select 0 1 2 3 4 5 6;
+#X msg 57 126 set riff0;
+#X msg 84 148 set riff1;
+#X msg 115 171 set riff2;
+#X msg 142 192 set riff3;
+#X msg 165 215 set riff4;
+#X msg 198 235 set riff5;
+#X msg 223 255 set riff6;
+#X text 108 311 command to send out to tabread for note arrays;
+#X connect 0 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 1 5 0;
+#X connect 3 2 6 0;
+#X connect 3 3 7 0;
+#X connect 3 4 8 0;
+#X connect 3 5 9 0;
+#X connect 3 6 10 0;
+#X connect 4 0 2 0;
+#X connect 5 0 2 0;
+#X connect 6 0 2 0;
+#X connect 7 0 2 0;
+#X connect 8 0 2 0;
+#X connect 9 0 2 0;
+#X connect 10 0 2 0;
+#X restore 65 312 pd riff_commands;
+#X obj 86 285 send riff_number;
+#X obj 64 98 int;
+#X obj 91 65 receive riff_number;
+#N canvas 724 284 474 324 riff_probs0 0;
+#X obj 42 20 inlet;
+#X obj 39 224 outlet;
+#X obj 41 49 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 41 75 random 100;
+#X msg 40 172 0;
+#X msg 101 172 1;
+#X msg 165 172 2;
+#X msg 231 172 3;
+#X obj 40 117 moses 5;
+#X obj 100 118 moses 20;
+#X obj 165 118 moses 50;
+#X obj 40 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 101 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 165 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 231 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 231 118 moses 70;
+#X obj 296 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 296 172 4;
+#X obj 296 118 moses 80;
+#X obj 361 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 361 118 moses 100;
+#X msg 361 172 5;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 8 0;
+#X connect 4 0 1 0;
+#X connect 5 0 1 0;
+#X connect 6 0 1 0;
+#X connect 7 0 1 0;
+#X connect 8 0 11 0;
+#X connect 8 1 9 0;
+#X connect 9 0 12 0;
+#X connect 9 1 10 0;
+#X connect 10 0 13 0;
+#X connect 10 1 15 0;
+#X connect 11 0 4 0;
+#X connect 12 0 5 0;
+#X connect 13 0 6 0;
+#X connect 14 0 7 0;
+#X connect 15 0 14 0;
+#X connect 15 1 18 0;
+#X connect 16 0 17 0;
+#X connect 17 0 1 0;
+#X connect 18 0 16 0;
+#X connect 18 1 20 0;
+#X connect 19 0 21 0;
+#X connect 20 0 19 0;
+#X connect 21 0 1 0;
+#X restore 65 211 pd riff_probs0;
+#N canvas 530 92 608 329 riff_probs1 0;
+#X obj 42 20 inlet;
+#X obj 39 224 outlet;
+#X obj 41 49 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 41 75 random 100;
+#X msg 40 172 0;
+#X obj 40 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 105 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 169 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 235 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 300 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 365 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 365 118 moses 100;
+#X obj 40 117 moses 20;
+#X msg 105 172 2;
+#X msg 169 172 3;
+#X msg 235 172 4;
+#X msg 300 172 5;
+#X msg 365 172 6;
+#X obj 104 118 moses 45;
+#X obj 169 118 moses 75;
+#X obj 235 118 moses 80;
+#X obj 300 118 moses 95;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 12 0;
+#X connect 4 0 1 0;
+#X connect 5 0 4 0;
+#X connect 6 0 13 0;
+#X connect 7 0 14 0;
+#X connect 8 0 15 0;
+#X connect 9 0 16 0;
+#X connect 10 0 17 0;
+#X connect 11 0 10 0;
+#X connect 12 0 5 0;
+#X connect 12 1 18 0;
+#X connect 13 0 1 0;
+#X connect 14 0 1 0;
+#X connect 15 0 1 0;
+#X connect 16 0 1 0;
+#X connect 17 0 1 0;
+#X connect 18 0 6 0;
+#X connect 18 1 19 0;
+#X connect 19 0 7 0;
+#X connect 19 1 20 0;
+#X connect 20 0 8 0;
+#X connect 20 1 21 0;
+#X connect 21 0 9 0;
+#X connect 21 1 11 0;
+#X restore 180 211 pd riff_probs1;
+#X msg 28 211 0;
+#X obj 28 185 receive reset;
+#N canvas 530 92 616 337 riff_probs2 0;
+#X obj 42 20 inlet;
+#X obj 39 224 outlet;
+#X obj 41 49 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 41 75 random 100;
+#X msg 40 172 0;
+#X obj 40 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 105 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 169 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 235 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 300 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 169 172 3;
+#X msg 235 172 4;
+#X msg 300 172 5;
+#X obj 40 117 moses 10;
+#X obj 104 118 moses 30;
+#X msg 105 172 1;
+#X obj 169 118 moses 55;
+#X obj 235 118 moses 90;
+#X obj 301 118 moses 100;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 13 0;
+#X connect 4 0 1 0;
+#X connect 5 0 4 0;
+#X connect 6 0 15 0;
+#X connect 7 0 10 0;
+#X connect 8 0 11 0;
+#X connect 9 0 12 0;
+#X connect 10 0 1 0;
+#X connect 11 0 1 0;
+#X connect 12 0 1 0;
+#X connect 13 0 5 0;
+#X connect 13 1 14 0;
+#X connect 14 0 6 0;
+#X connect 14 1 16 0;
+#X connect 15 0 1 0;
+#X connect 16 0 7 0;
+#X connect 16 1 17 0;
+#X connect 17 0 8 0;
+#X connect 17 1 18 0;
+#X connect 18 0 9 0;
+#X restore 295 211 pd riff_probs2;
+#N canvas 532 166 616 337 riff_probs3 0;
+#X obj 42 20 inlet;
+#X obj 39 224 outlet;
+#X obj 41 49 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 41 75 random 100;
+#X msg 40 172 0;
+#X obj 40 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 105 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 169 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 235 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 300 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 235 172 4;
+#X msg 300 172 5;
+#X obj 104 118 moses 30;
+#X msg 105 172 1;
+#X obj 40 117 moses 15;
+#X obj 169 118 moses 35;
+#X msg 169 172 2;
+#X obj 235 118 moses 70;
+#X obj 301 118 moses 85;
+#X obj 366 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 367 118 moses 100;
+#X msg 366 172 6;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 14 0;
+#X connect 4 0 1 0;
+#X connect 5 0 4 0;
+#X connect 6 0 13 0;
+#X connect 7 0 16 0;
+#X connect 8 0 10 0;
+#X connect 9 0 11 0;
+#X connect 10 0 1 0;
+#X connect 11 0 1 0;
+#X connect 12 0 6 0;
+#X connect 12 1 15 0;
+#X connect 13 0 1 0;
+#X connect 14 0 5 0;
+#X connect 14 1 12 0;
+#X connect 15 0 7 0;
+#X connect 15 1 17 0;
+#X connect 16 0 1 0;
+#X connect 17 0 8 0;
+#X connect 17 1 18 0;
+#X connect 18 0 9 0;
+#X connect 18 1 20 0;
+#X connect 19 0 21 0;
+#X connect 20 0 19 0;
+#X connect 21 0 1 0;
+#X restore 411 211 pd riff_probs3;
+#N canvas 532 166 624 345 riff_probs4 0;
+#X obj 42 20 inlet;
+#X obj 39 224 outlet;
+#X obj 41 49 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 41 75 random 100;
+#X msg 40 172 0;
+#X obj 40 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 105 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 169 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 235 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 300 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 300 172 5;
+#X obj 104 118 moses 30;
+#X msg 105 172 1;
+#X obj 40 117 moses 15;
+#X obj 169 118 moses 35;
+#X msg 169 172 2;
+#X obj 366 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 367 118 moses 100;
+#X msg 366 172 6;
+#X obj 235 118 moses 50;
+#X msg 235 172 3;
+#X obj 301 118 moses 70;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 13 0;
+#X connect 4 0 1 0;
+#X connect 5 0 4 0;
+#X connect 6 0 12 0;
+#X connect 7 0 15 0;
+#X connect 8 0 20 0;
+#X connect 9 0 10 0;
+#X connect 10 0 1 0;
+#X connect 11 0 6 0;
+#X connect 11 1 14 0;
+#X connect 12 0 1 0;
+#X connect 13 0 5 0;
+#X connect 13 1 11 0;
+#X connect 14 0 7 0;
+#X connect 14 1 19 0;
+#X connect 15 0 1 0;
+#X connect 16 0 18 0;
+#X connect 17 0 16 0;
+#X connect 18 0 1 0;
+#X connect 19 0 8 0;
+#X connect 19 1 21 0;
+#X connect 20 0 1 0;
+#X connect 21 0 9 0;
+#X connect 21 1 17 0;
+#X restore 526 211 pd riff_probs4;
+#X obj 64 126 sel 0 1 2 3 4 5 6;
+#N canvas 532 166 632 353 riff_probs5 0;
+#X obj 42 20 inlet;
+#X obj 39 224 outlet;
+#X obj 41 49 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 41 75 random 100;
+#X msg 40 172 0;
+#X obj 40 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 105 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 169 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 235 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 300 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 104 118 moses 30;
+#X obj 40 117 moses 10;
+#X msg 105 172 2;
+#X msg 169 172 3;
+#X msg 235 172 4;
+#X obj 169 118 moses 60;
+#X obj 235 118 moses 90;
+#X msg 300 172 6;
+#X obj 301 118 moses 100;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 11 0;
+#X connect 4 0 1 0;
+#X connect 5 0 4 0;
+#X connect 6 0 12 0;
+#X connect 7 0 13 0;
+#X connect 8 0 14 0;
+#X connect 9 0 17 0;
+#X connect 10 0 6 0;
+#X connect 10 1 15 0;
+#X connect 11 0 5 0;
+#X connect 11 1 10 0;
+#X connect 12 0 1 0;
+#X connect 13 0 1 0;
+#X connect 14 0 1 0;
+#X connect 15 0 7 0;
+#X connect 15 1 16 0;
+#X connect 16 0 8 0;
+#X connect 16 1 18 0;
+#X connect 17 0 1 0;
+#X connect 18 0 9 0;
+#X restore 642 211 pd riff_probs5;
+#N canvas 532 166 636 357 riff_probs6 0;
+#X obj 42 20 inlet;
+#X obj 39 224 outlet;
+#X obj 41 49 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 41 75 random 100;
+#X msg 40 172 0;
+#X obj 40 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 105 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 169 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 235 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 169 118 moses 60;
+#X obj 40 117 moses 15;
+#X obj 104 118 moses 45;
+#X msg 105 172 1;
+#X msg 169 172 2;
+#X msg 235 172 5;
+#X obj 235 118 moses 100;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 10 0;
+#X connect 4 0 1 0;
+#X connect 5 0 4 0;
+#X connect 6 0 12 0;
+#X connect 7 0 13 0;
+#X connect 8 0 14 0;
+#X connect 9 0 7 0;
+#X connect 9 1 15 0;
+#X connect 10 0 5 0;
+#X connect 10 1 11 0;
+#X connect 11 0 6 0;
+#X connect 11 1 9 0;
+#X connect 12 0 1 0;
+#X connect 13 0 1 0;
+#X connect 14 0 1 0;
+#X connect 15 0 8 0;
+#X restore 758 211 pd riff_probs6;
+#X obj 20 345 print;
+#X text 117 346 command to load next riff's note array into tabread
+;
+#X connect 0 0 2 0;
+#X connect 2 0 7 0;
+#X connect 3 0 5 0;
+#X connect 3 0 6 0;
+#X connect 5 0 1 0;
+#X connect 7 0 16 0;
+#X connect 8 0 7 1;
+#X connect 9 0 3 0;
+#X connect 10 0 3 0;
+#X connect 11 0 3 0;
+#X connect 12 0 11 0;
+#X connect 13 0 3 0;
+#X connect 14 0 3 0;
+#X connect 15 0 3 0;
+#X connect 16 0 9 0;
+#X connect 16 1 10 0;
+#X connect 16 2 13 0;
+#X connect 16 3 14 0;
+#X connect 16 4 15 0;
+#X connect 16 5 17 0;
+#X connect 16 6 18 0;
+#X connect 17 0 3 0;
+#X connect 18 0 3 0;
+#X restore 327 274 pd riff_selector;
+#X text 345 206 counts from 0 on to iterate through riff arrays. in1:
+pulse \, in2: length of the current riff array \, out1: count \, out2:
+bang on end of riff;
+#X obj 327 183 tabread riff_sizes;
+#X obj 326 159 receive riff_number;
+#X obj 172 520 int;
+#N canvas 851 115 321 223 every_other 0;
+#X obj 117 41 inlet;
+#X obj 116 173 outlet;
+#X obj 116 137 spigot;
+#X text 165 40 incoming pulse;
+#X obj 152 115 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 152 89 0;
+#X obj 153 64 receive reset;
+#X connect 0 0 2 0;
+#X connect 0 0 4 0;
+#X connect 2 0 1 0;
+#X connect 4 0 2 1;
+#X connect 5 0 4 0;
+#X connect 6 0 5 0;
+#X restore 263 85 pd every_other;
+#X obj 276 381 receive reset;
+#X msg 276 402 62;
+#X text 314 399 hack here to ensure that the proper values for the
+start of the first riff are stored in the int below.;
+#X text 447 268 in1: current riff's number \, out1: command to tell
+tabread to load next riff's array \, out2: command to tell tabread
+to load next riff's doublings array;
+#X text 98 521 riff note;
+#N canvas 0 126 1248 617 harmonizer 1;
+#X obj 110 36 inlet;
+#X obj 303 32 inlet;
+#X obj 305 530 outlet;
+#X obj 147 104 receive thickness;
+#X obj 304 495 tabread harmonies0;
+#N canvas 158 175 1023 507 riff_command_maker 0;
+#X obj 403 418 outlet;
+#X msg 404 232 set riff_harmonies0;
+#X msg 431 254 set riff_harmonies1;
+#X msg 462 277 set riff_harmonies2;
+#X msg 489 298 set riff_harmonies3;
+#X msg 512 321 set riff_harmonies4;
+#X msg 545 341 set riff_harmonies5;
+#X msg 570 361 set riff_harmonies6;
+#X obj 405 39 inlet;
+#X text 447 39 current riff number;
+#X text 455 417 command to send out to tabread for riff_harmony arrays
+;
+#X obj 405 75 sel 0 1 2 3 4 5 6;
+#X obj 57 341 outlet;
+#X msg 58 155 set harmonies0;
+#X msg 85 177 set harmonies1;
+#X msg 116 200 set harmonies2;
+#X msg 143 221 set harmonies3;
+#X msg 166 244 set harmonies4;
+#X msg 199 264 set harmonies5;
+#X msg 224 284 set harmonies6;
+#X text 109 340 command to send out to tabread for harmony arrays;
+#X connect 1 0 0 0;
+#X connect 2 0 0 0;
+#X connect 3 0 0 0;
+#X connect 4 0 0 0;
+#X connect 5 0 0 0;
+#X connect 6 0 0 0;
+#X connect 7 0 0 0;
+#X connect 8 0 11 0;
+#X connect 11 0 13 0;
+#X connect 11 0 1 0;
+#X connect 11 1 14 0;
+#X connect 11 1 2 0;
+#X connect 11 2 15 0;
+#X connect 11 2 3 0;
+#X connect 11 3 16 0;
+#X connect 11 3 4 0;
+#X connect 11 4 17 0;
+#X connect 11 4 5 0;
+#X connect 11 5 18 0;
+#X connect 11 5 6 0;
+#X connect 11 6 19 0;
+#X connect 11 6 7 0;
+#X connect 13 0 12 0;
+#X connect 14 0 12 0;
+#X connect 15 0 12 0;
+#X connect 16 0 12 0;
+#X connect 17 0 12 0;
+#X connect 18 0 12 0;
+#X connect 19 0 12 0;
+#X restore 303 102 pd riff_command_maker;
+#X text 347 31 current riff number;
+#X obj 446 161 tabread riff_harmonies0;
+#X floatatom 447 191 5 0 0 0 - - -;
+#X obj 109 136 random;
+#X obj 110 103 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X floatatom 108 164 5 0 0 0 - - -;
+#X floatatom 110 248 5 0 0 0 - - -;
+#X obj 109 190 / 20;
+#X obj 109 219 int;
+#X text 791 225 a random number between 0 and 'thickness' is drawn.
+this random number is divided by 20 and added to the value stored in
+riff_harmonies for that note (many of the values in riff_harmonies
+will be negative). the resulting value is the number of harmony notes
+that are played. (negative values equate to zero).;
+#X obj 109 276 +;
+#X floatatom 109 301 5 0 0 0 - - -;
+#X floatatom 168 127 5 0 0 0 - - -;
+#X floatatom 313 60 5 0 0 0 - - -;
+#X obj 109 324 select 1 2 3 4 5;
+#X text 152 35 counter number;
+#X msg 109 355 1;
+#X msg 129 378 2;
+#X msg 151 401 3;
+#X msg 173 424 4;
+#X msg 194 447 5;
+#X connect 0 0 7 0;
+#X connect 0 0 10 0;
+#X connect 1 0 5 0;
+#X connect 1 0 19 0;
+#X connect 3 0 9 1;
+#X connect 3 0 18 0;
+#X connect 4 0 2 0;
+#X connect 5 0 4 0;
+#X connect 5 1 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 16 1;
+#X connect 9 0 11 0;
+#X connect 10 0 9 0;
+#X connect 11 0 13 0;
+#X connect 12 0 16 0;
+#X connect 13 0 14 0;
+#X connect 14 0 12 0;
+#X connect 16 0 17 0;
+#X connect 17 0 20 0;
+#X connect 20 0 22 0;
+#X connect 20 1 23 0;
+#X connect 20 1 22 0;
+#X connect 20 2 24 0;
+#X connect 20 2 22 0;
+#X connect 20 2 23 0;
+#X connect 20 3 24 0;
+#X connect 20 3 25 0;
+#X connect 20 3 22 0;
+#X connect 20 3 23 0;
+#X connect 20 4 26 0;
+#X connect 20 4 22 0;
+#X connect 20 4 23 0;
+#X connect 20 4 24 0;
+#X connect 20 4 25 0;
+#X connect 22 0 4 0;
+#X connect 23 0 4 0;
+#X connect 24 0 4 0;
+#X connect 25 0 4 0;
+#X connect 26 0 4 0;
+#X restore 327 493 pd harmonizer;
+#N canvas 564 374 595 318 thickener 0;
+#X obj 71 76 inlet;
+#X text 121 76 pulse;
+#X obj 71 103 random 2;
+#X obj 70 134 moses 1;
+#X floatatom 127 222 0 0 0 0 - - -;
+#X obj 127 197 + 1;
+#X obj 70 198 float;
+#X obj 70 164 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 149 103 50/50 chance that the 'thickness' value will be incremented
+each time;
+#X obj 176 136 receive reset;
+#X msg 177 162 0;
+#X obj 128 252 send thickness;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 7 0;
+#X connect 4 0 11 0;
+#X connect 5 0 4 0;
+#X connect 5 0 6 1;
+#X connect 6 0 5 0;
+#X connect 7 0 6 0;
+#X connect 9 0 10 0;
+#X connect 10 0 5 0;
+#X connect 10 0 4 0;
+#X restore 326 117 pd thickener;
+#X text 427 480 each riff_harmony array will contain one value per
+note in the riff \, representing the percentage chance of that note
+being harmonized. Each harmony array will contain a list of note names:
+the harmonies (in order) which should be used with a given note.;
+#X text 417 115 randomly increments the 'thickness' value. in1: every
+other pulse.;
+#X obj 413 460 receive riff_number;
+#X connect 0 0 13 0;
+#X connect 0 0 14 0;
+#X connect 5 0 8 0;
+#X connect 5 0 20 0;
+#X connect 6 0 13 1;
+#X connect 7 0 5 0;
+#X connect 7 1 9 0;
+#X connect 8 0 6 0;
+#X connect 9 0 8 0;
+#X connect 11 0 7 1;
+#X connect 12 0 11 0;
+#X connect 13 0 1 0;
+#X connect 14 0 7 0;
+#X connect 14 0 21 0;
+#X connect 15 0 16 0;
+#X connect 16 0 6 0;
+#X connect 24 0 20 1;
+#X restore 165 209 pd riffplayer;
+#N canvas 292 49 850 436 riffs 0;
+#N canvas 247 208 454 304 (subpatch) 0;
+#X array riff0 20 float 3;
+#A 0 62 62 65 60 67 67 65 65 65 69 67 67 64 64 64 64 0 0 0 0;
+#X coords 0 80 20 0 140 140 1;
+#X restore 65 -304 graph;
+#N canvas 247 208 454 304 (subpatch) 0;
+#X array riff1 20 float 3;
+#A 0 69 67 67 64 64 64 64 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 80 20 0 140 140 1;
+#X restore 255 -304 graph;
+#N canvas 247 208 454 304 (subpatch) 0;
+#X array riff_sizes 20 float 3;
+#A 0 15 6 23 28 13 7 7 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 30 20 0 140 140 1;
+#X restore 638 -111 graph;
+#N canvas 496 229 458 308 (subpatch) 0;
+#X array riff2 30 float 3;
+#A 0 62 62 65 60 67 67 64 64 64 69 67 67 65 65 65 69 72 72 67 67 64
+64 64 64 0 0 0 0 0 0;
+#X coords 0 80 30 0 140 140 1;
+#X restore 446 -304 graph;
+#N canvas 496 229 458 308 (subpatch) 0;
+#X array riff3 30 float 3;
+#A 0 62 62 65 60 67 67 65 65 65 69 67 67 64 64 64 69 74 74 72 72 72
+69 65 67 67 64 64 64 64 0;
+#X coords 0 80 30 0 140 140 1;
+#X restore 632 -304 graph;
+#N canvas 496 229 458 308 (subpatch) 0;
+#X array riff4 30 float 3;
+#A 0 69 74 74 72 72 69 69 69 74 72 69 67 67 67 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0;
+#X coords 0 80 30 0 140 140 1;
+#X restore 69 -115 graph;
+#N canvas 496 229 458 308 (subpatch) 0;
+#X array riff5 30 float 3;
+#A 0 69 65 67 67 64 64 64 64 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0;
+#X coords 0 80 30 0 140 140 1;
+#X restore 257 -115 graph;
+#N canvas 496 229 458 308 (subpatch) 0;
+#X array riff6 30 float 3;
+#A 0 74 77 74 72 69 67 67 67 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0;
+#X coords 0 80 30 0 140 140 1;
+#X restore 449 -111 graph;
+#X restore 478 99 pd riffs;
+#X text 502 40 Components: 1 pulse 2 midiNoteMaker 3 sustainer 4 riffselector
+5 riffplayer 6 riffs;
+#X floatatom 166 243 5 0 0 0 - - -;
+#X obj 188 265 print;
+#N canvas 490 290 624 342 midiNoteMaker 0;
+#X obj 83 51 inlet;
+#X obj 85 147 noteout;
+#X obj 264 50 inlet;
+#X text 307 51 note duration (same as tempo);
+#X text 125 50 midi note numbers;
+#X floatatom 264 73 5 0 0 0 - - -;
+#X obj 84 101 makenote 64 500;
+#X floatatom 94 77 5 0 0 0 - - -;
+#X connect 0 0 6 0;
+#X connect 0 0 7 0;
+#X connect 2 0 5 0;
+#X connect 5 0 6 2;
+#X connect 6 0 1 0;
+#X connect 6 1 1 1;
+#X restore 167 296 pd midiNoteMaker;
+#N canvas 623 295 458 308 resetter 0;
+#X obj 22 44 inlet;
+#X obj 229 44 inlet;
+#X obj 109 190 send reset;
+#X obj 109 155 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 109 116 select 0;
+#X text 62 43 anything = reset;
+#X text 273 44 0 = reset;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 3 0 2 0;
+#X connect 4 0 3 0;
+#X restore 66 134 pd resetter;
+#X text 550 247 for every other note a value will be determined by
+the gradually increasing/decreasing 'thickness' value. it will be an
+integer representing how many harmony notes are to be played along
+with the current note.;
+#X text 615 144 'thickness': universal percentage which increases over
+time. represents the percentage chance to add harmony notes to a given
+note within a riff. it's value will increase incrementally \, though
+with some randomness (simple 50/50 chance it will increment the value).
+;
+#N canvas 152 191 984 475 harmonies 0;
+#N canvas 247 208 454 304 (subpatch) 0;
+#X array riff_harmonies0 20 float 3;
+#A 0 -5 -5 -3 -4 0 0 -3 -3 -3 -5 -4 -4 -6 -6 -6 -6 0 0 0 0;
+#X coords 0 20 20 -20 140 140 1;
+#X restore 65 -304 graph;
+#N canvas 247 208 454 304 (subpatch) 0;
+#X array riff_harmonies1 20 float 3;
+#A 0 -5 -5 -3 -4 0 0 -3 -3 -3 -5 -4 -4 -6 -6 -6 -6 0 0 0 0;
+#X coords 0 20 20 -20 140 140 1;
+#X restore 235 -304 graph;
+#X restore 477 152 pd harmonies;
+#X connect 0 0 6 0;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 2 0 12 1;
+#X connect 3 0 1 1;
+#X connect 3 0 11 1;
+#X connect 4 0 5 0;
+#X connect 4 0 12 0;
+#X connect 5 0 3 0;
+#X connect 6 0 9 0;
+#X connect 9 0 10 0;
+#X connect 9 0 11 0;

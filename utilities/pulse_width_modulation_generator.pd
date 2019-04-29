@@ -1,0 +1,57 @@
+#N canvas 988 180 795 588 10;
+#X obj 100 91 hsl 128 15 0 127 0 0 empty empty Midi_Note_Values -2
+-8 0 10 -262144 -1 -1 3600 1;
+#X obj 97 117 mtof;
+#X obj 97 146 phasor~;
+#X floatatom 159 146 5 0 0 0 - - -;
+#X floatatom 227 172 5 0 100 0 Pulse_Width_Percent - -;
+#X obj 227 201 / 100;
+#X obj 97 369 expr~ $v1 > $v2;
+#X obj 97 434 *~ 0.7;
+#X obj 97 474 *~;
+#X obj 150 449 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 97 514 dac~;
+#X obj 211 433 tabwrite~ pwm;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array pwm 5000 float 0;
+#X coords 0 1 4999 -1 200 140 1;
+#X restore 463 212 graph;
+#X obj 211 403 metro 100;
+#X obj 211 378 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 484 21 \; pd dsp 1;
+#X msg 484 62 \; pd dsp 0;
+#X obj 227 226 sig~;
+#X obj 270 226 osc~;
+#X obj 270 250 +~ 1;
+#X obj 270 274 *~ 0.5;
+#X obj 227 321 *~ 0;
+#X obj 270 320 *~ 0;
+#X obj 248 300 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 291 299 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 1 0 3 0;
+#X connect 2 0 6 0;
+#X connect 4 0 5 0;
+#X connect 5 0 17 0;
+#X connect 5 0 18 0;
+#X connect 6 0 7 0;
+#X connect 6 0 11 0;
+#X connect 7 0 8 0;
+#X connect 8 0 10 0;
+#X connect 8 0 10 1;
+#X connect 9 0 8 1;
+#X connect 13 0 11 0;
+#X connect 14 0 13 0;
+#X connect 17 0 21 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 20 0 22 0;
+#X connect 21 0 6 1;
+#X connect 22 0 6 1;
+#X connect 23 0 21 1;
+#X connect 24 0 22 1;

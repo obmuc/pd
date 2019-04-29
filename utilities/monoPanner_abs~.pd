@@ -1,0 +1,26 @@
+#N canvas 822 399 394 329 10;
+#X obj 68 98 inlet;
+#X obj 206 98 inlet~;
+#X obj 221 169 + 50;
+#X obj 68 193 abs;
+#X obj 68 169 - 50;
+#X obj 68 217 / 10;
+#X obj 221 217 / 10;
+#X obj 53 243 *~;
+#X obj 206 243 *~;
+#X obj 53 270 outlet~;
+#X obj 206 270 outlet~;
+#X text 24 21 **monoPanner_abs~.pd** Pan a mono source left/right.
+-- Inlets (l to r): number representing desired pan (-50 = hard left
+\, 0 = centered \, 50 = hard right) \, mono audio signal;
+#X connect 0 0 4 0;
+#X connect 0 0 2 0;
+#X connect 1 0 7 0;
+#X connect 1 0 8 0;
+#X connect 2 0 6 0;
+#X connect 3 0 5 0;
+#X connect 4 0 3 0;
+#X connect 5 0 7 1;
+#X connect 6 0 8 1;
+#X connect 7 0 9 0;
+#X connect 8 0 10 0;
